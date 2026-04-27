@@ -2,7 +2,7 @@ package com.rideshare.locationservice.dto;
 
 /**
  * DTO (Data Transfer Object) representing a nearby driver response.
- * This class is used to send driver location and distance details
+ 
  
  */
 public class NearByDriverResponse {
