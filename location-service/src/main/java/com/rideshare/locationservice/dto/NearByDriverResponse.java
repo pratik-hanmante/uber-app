@@ -1,7 +1,6 @@
 package com.rideshare.locationservice.dto;
 
-/**
- * DTO (Data Transfer Object) representing a nearby driver response.
+
  
  
  */
