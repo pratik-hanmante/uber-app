@@ -9,7 +9,7 @@ public class NearByDriverResponse {
 
     private String driverId;
 
-    // Latitude of the driver's current location (as a string)
+    
     private String latitude;
 
     // Longitude of the driver's current location (as a string)
