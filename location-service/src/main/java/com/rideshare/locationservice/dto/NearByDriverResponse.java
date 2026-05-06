@@ -12,7 +12,7 @@ public class NearByDriverResponse {
     
     private String latitude;
 
-    // Longitude of the driver's current location (as a string)
+
     private String longitude;
 
     // Distance of the driver from the user in kilometers
