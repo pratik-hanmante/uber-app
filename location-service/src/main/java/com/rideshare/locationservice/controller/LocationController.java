@@ -1,14 +1,13 @@
 package com.rideshare.locationservice.controller;
 
-
-
+import com.rideshare.locationservice.dto.DriverLocationRequest;
 import com.rideshare.locationservice.dto.NearByDriverResponse;
+import com.rideshare.locationservice.service.LocationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Driver;
 import java.util.List;
 
 @RestController
@@ -21,20 +20,19 @@ public class LocationController {
 
     @PostMapping("/drivers/update")
     public ResponseEntity<String> updateDriverLocation(
-            @RequestBody Driver driver) {
+            @RequestBody DriverLocationRequest driverLocationRequest) {
         return ResponseEntity.ok("driver location updated");
     }
 
-
     @GetMapping("/drivers/nearby")
     public ResponseEntity<List<NearByDriverResponse>> getNearByDriverResponse(
-            @RequestParam double latitude, @RequestParam double longitude, @RequestParam (defaultValue = "5.0") double radius) {
+            @RequestParam double latitude, @RequestParam double longitude, @RequestParam(defaultValue = "5.0") double radius) {
 
-        return  ResponseEntity.ok(locationService.findNeaarbyDrvers(latitude, longitude, radius))
+        return ResponseEntity.ok(locationService.findNearbyDrivers(latitude, longitude, radius));
     }
 
     @DeleteMapping("/drivers/{driverID}")
-    public ResponseEntity<String > removeDriver(@PathVariable String driverID) {
+    public ResponseEntity<String> removeDriver(@PathVariable String driverID) {
         locationService.removeDriver(driverID);
         return ResponseEntity.ok("driver removed");
     }
