@@ -1,4 +1,4 @@
-# Uber App — Project Notes
+# Uber App 
 
 ## Architecture Overview
 
