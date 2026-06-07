@@ -1,4 +1,4 @@
-# Uber App 
+# Uber App — Project Notes
 
 ## Architecture Overview
 
@@ -19,9 +19,14 @@ A ride-sharing backend built as three Spring Boot microservices (Java 17, Spring
 - **Storage:** Redis (geo-spatial — `GEOADD` / `GEORADIUS` style commands)
 - **Role:** Receives real-time driver GPS pings, stores them in Redis, and exposes a nearby-driver search endpoint.
 - **Key DTOs:**
-  - `DriverLocationRequest` — `driverId`, `latitude`, `longitude`
-  - `NearByDriverResponse` — `driverId`, `latitude`, `longitude`, `distanceInKm`
-- **Status:** DTOs defined; controller/service layer not yet implemented.
+  - `DriverLocationRequest` — `driverId`, `latitude`, `longitude` (Lombok: `@Data`, `@AllArgsConstructor`, `@NoArgsConstructor`)
+  - `NearByDriverResponse` — `driverId`, `latitude`, `longitude`, `distanceInKm` (Lombok: `@Data`, `@AllArgsConstructor`, `@NoArgsConstructor`)
+- **Controller:** `LocationController` — base path `/api/v1/locations`
+  - `POST /drivers/update` — accepts `DriverLocationRequest`; returns 200 (Redis write not yet wired)
+  - `GET /drivers/nearby?latitude=&longitude=&radius=` — delegates to `LocationService.findNearbyDrivers`; `radius` defaults to `5.0` km
+  - `DELETE /drivers/{driverID}` — delegates to `LocationService.removeDriver`
+- **Service:** `LocationService` — methods stubbed (`findNearbyDrivers` returns empty list, `removeDriver` is no-op); Redis GEO ops not yet wired.
+- **Status:** Controller + DTOs done. Service layer is a stub — Redis integration pending.
 
 ### matching-service
 - **Storage:** None (stateless)
@@ -55,14 +60,16 @@ All containers share the `rideshare-network` bridge network.
 
 ## What's Next (TODO)
 
-- [ ] `location-service`: Add `DriverLocationController` (POST `/drivers/location`) and `LocationService` (Redis GEO ops)
-- [ ] `location-service`: Add `NearByDriverController` (GET `/drivers/nearby`) using Redis `GEORADIUS`
-- [ ] Fix `NearByDriverResponse` — add Lombok `@Data`/`@AllArgsConstructor`/`@NoArgsConstructor` (currently missing)
-- [ ] `ride-service`: Define `Ride` JPA entity + repository
-- [ ] `ride-service`: Add Kafka producer for `ride.requested` topic
-- [ ] `matching-service`: Add Kafka consumer for `ride.requested`, call location-service, publish `ride.matched`
-- [ ] Add `application.yml` / `application.properties` for each service (Redis host, Kafka brokers, MySQL URL)
-- [ ] Wire services together with inter-service HTTP (WebClient / Feign) or Kafka messaging
+- [ ] `location-service` — `LocationService.updateDriverLocation`: wire Redis `GEOADD` (POST controller returns hardcoded string; service call is skipped)
+- [ ] `location-service` — `LocationService.findNearbyDrivers`: implement Redis `GEORADIUS` / `GEOSEARCH` and map results to `NearByDriverResponse`
+- [ ] `location-service` — `LocationService.removeDriver`: implement Redis `ZREM` / `HDEL`
+- [ ] `location-service` — configure `application.yaml` with Redis connection (`spring.data.redis.host`, `port`)
+- [ ] `ride-service`: define `Ride` JPA entity + repository
+- [ ] `ride-service`: add Kafka producer for `ride.requested` topic
+- [ ] `ride-service`: configure `application.yaml` (MySQL URL, Kafka brokers)
+- [ ] `matching-service`: add Kafka consumer for `ride.requested`, call location-service, publish `ride.matched`
+- [ ] `matching-service`: configure `application.yaml` (Kafka brokers, location-service URL)
+- [ ] Wire inter-service HTTP calls (WebClient / Feign) for matching-service → location-service
 
 ## Running Locally
 
