@@ -22,23 +22,27 @@ A ride-sharing backend built as three Spring Boot microservices (Java 17, Spring
   - `DriverLocationRequest` — `driverId`, `latitude`, `longitude` (Lombok: `@Data`, `@AllArgsConstructor`, `@NoArgsConstructor`)
   - `NearByDriverResponse` — `driverId`, `latitude`, `longitude`, `distanceInKm` (Lombok: `@Data`, `@AllArgsConstructor`, `@NoArgsConstructor`)
 - **Controller:** `LocationController` — base path `/api/v1/locations`
-  - `POST /drivers/update` — accepts `DriverLocationRequest`; returns 200 (Redis write not yet wired)
+  - `POST /drivers/update` — accepts `DriverLocationRequest`; returns hardcoded `"driver location updated"` string — does **not** call the service layer
   - `GET /drivers/nearby?latitude=&longitude=&radius=` — delegates to `LocationService.findNearbyDrivers`; `radius` defaults to `5.0` km
   - `DELETE /drivers/{driverID}` — delegates to `LocationService.removeDriver`
-- **Service:** `LocationService` — methods stubbed (`findNearbyDrivers` returns empty list, `removeDriver` is no-op); Redis GEO ops not yet wired.
-- **Status:** Controller + DTOs done. Service layer is a stub — Redis integration pending.
+- **Service:** `LocationService` — two methods only (`findNearbyDrivers` returns `List.of()`, `removeDriver` is no-op); no `updateDriverLocation` method exists yet; Redis GEO ops not wired.
+- **Config:** `application.yaml` has `spring.application.name` only — Redis host/port not configured.
+- **Status:** Controller + DTOs done. Service layer is a stub — Redis integration pending; `updateDriverLocation` not yet wired to service.
 
 ### matching-service
 - **Storage:** None (stateless)
-- **Messaging:** Kafka consumer + producer
+- **Messaging:** Kafka consumer + producer (`spring-kafka` dependency declared, not used)
 - **Role:** Listens for ride-request events, queries location-service for nearby drivers, and publishes a match event.
-- **Status:** Scaffold only — business logic not yet added.
+- **Config:** `application.yaml` has `spring.application.name` only — no Kafka broker configured.
+- **Status:** Skeleton only — main class exists; no controllers, services, DTOs, or Kafka wiring.
 
 ### ride-service
 - **Storage:** MySQL (`ride_db`)
 - **Messaging:** Kafka producer (publishes ride-request events), consumer (listens for match events)
 - **Role:** Entry point for rider requests; persists ride state; triggers the matching flow.
-- **Status:** Scaffold only — JPA entities and Kafka wiring not yet added.
+- **Dependencies declared:** `spring-boot-starter-data-jpa`, `spring-kafka`, `mysql-connector-j`, `spring-boot-starter-validation` — none wired yet.
+- **Config:** `application.yaml` has `spring.application.name` only — no datasource or Kafka configured.
+- **Status:** Skeleton only — main class exists; no entities, repositories, controllers, or Kafka wiring.
 
 ## Infrastructure (docker-compose.yml)
 
@@ -60,16 +64,28 @@ All containers share the `rideshare-network` bridge network.
 
 ## What's Next (TODO)
 
-- [ ] `location-service` — `LocationService.updateDriverLocation`: wire Redis `GEOADD` (POST controller returns hardcoded string; service call is skipped)
-- [ ] `location-service` — `LocationService.findNearbyDrivers`: implement Redis `GEORADIUS` / `GEOSEARCH` and map results to `NearByDriverResponse`
-- [ ] `location-service` — `LocationService.removeDriver`: implement Redis `ZREM` / `HDEL`
-- [ ] `location-service` — configure `application.yaml` with Redis connection (`spring.data.redis.host`, `port`)
-- [ ] `ride-service`: define `Ride` JPA entity + repository
-- [ ] `ride-service`: add Kafka producer for `ride.requested` topic
-- [ ] `ride-service`: configure `application.yaml` (MySQL URL, Kafka brokers)
-- [ ] `matching-service`: add Kafka consumer for `ride.requested`, call location-service, publish `ride.matched`
-- [ ] `matching-service`: configure `application.yaml` (Kafka brokers, location-service URL)
+### location-service
+- [ ] Add `updateDriverLocation` method to `LocationService` and call it from `LocationController.updateDriverLocation()` (currently returns hardcoded string, service not invoked)
+- [ ] `LocationService.updateDriverLocation`: wire Redis `GEOADD`
+- [ ] `LocationService.findNearbyDrivers`: implement Redis `GEORADIUS` / `GEOSEARCH` and map results to `NearByDriverResponse`
+- [ ] `LocationService.removeDriver`: implement Redis `ZREM` / `HDEL`
+- [ ] Configure `application.yaml`: `spring.data.redis.host` + `port`
+
+### ride-service
+- [ ] Define `Ride` JPA entity + repository
+- [ ] Add Kafka producer for `ride.requested` topic
+- [ ] Add Kafka consumer for `ride.matched` topic (update ride record with assigned driver)
+- [ ] Configure `application.yaml`: MySQL datasource URL, JPA settings, Kafka brokers
+
+### matching-service
+- [ ] Add Kafka consumer for `ride.requested`
+- [ ] Call `location-service` to find nearby drivers (WebClient / Feign)
+- [ ] Publish `ride.matched` Kafka event
+- [ ] Configure `application.yaml`: Kafka brokers, location-service base URL
+
+### Cross-cutting
 - [ ] Wire inter-service HTTP calls (WebClient / Feign) for matching-service → location-service
+- [ ] Assign ports to location-service and matching-service in their `application.yaml`
 
 ## Running Locally
 
