@@ -90,12 +90,7 @@ All containers share the `rideshare-network` bridge network.
 ## Running Locally
 
 ```bash
-# Start infrastructure
-docker-compose up -d
 
-# Run each service (from its own directory)
-./mvnw spring-boot:run
-```
 
 MySQL credentials: `root / root`, database: `ride_db`
 Kafka broker (from host): `localhost:9092`
