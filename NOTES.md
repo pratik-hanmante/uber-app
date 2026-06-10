@@ -10,7 +10,7 @@ A ride-sharing backend built as three Spring Boot microservices (Java 17, Spring
    ├── location-service   (Redis + REST)
    ├── matching-service   (Kafka consumer/producer)
    └── ride-service       (MySQL + Kafka + JPA)
-```
+
 
 ## Services
 
