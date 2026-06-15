@@ -1,4 +1,4 @@
-# Uber App — Project Notes
+ii# Uber App — Project Notes
 
 
 
@@ -89,7 +89,7 @@ All containers share the `rideshare-network` bridge network.
 
 ## Running Locally
 
-```bash
+
 
 
 MySQL credentials: `root / root`, database: `ride_db`
