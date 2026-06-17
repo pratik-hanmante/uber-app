@@ -8,7 +8,7 @@ A ride-sharing backend built as three Spring Boot microservices (Java 17, Spring
 [Client]
    |
    ├── location-service   (Redis + REST)
-   ├── matching-service   (Kafka consumer/producer)
+   ├── matching-service   (Kafka)
    └── ride-service       (MySQL + Kafka + JPA)
 
 
