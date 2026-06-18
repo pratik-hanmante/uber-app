@@ -4,7 +4,7 @@
 
 A ride-sharing backend built as three Spring Boot microservices (Java 17, Spring Boot 4.x), coordinated via Kafka and backed by Redis + MySQL.
 
-```
+
 [Client]
    |
    ├── location-service   (Redis + REST)
