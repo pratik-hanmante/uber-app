@@ -84,7 +84,7 @@ All containers share the `rideshare-network` bridge network.
 
 ### Cross-cutting
 - [ ] Wire inter-service HTTP calls (WebClient / Feign) for matching-service → location-service
-- [ ] Assign ports to location-service and matching-service in their `application.yaml`
+- [ ] Assign ports to location-service and matching-service in `application.yaml`
 
 
 MySQL credentials: `root / root`, database: `ride_db`
