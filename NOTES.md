@@ -55,7 +55,7 @@ A ride-sharing backend built as three Spring Boot microservices (Java 17, Spring
 
 All containers share the `rideshare-network` bridge network.
 
-## Typical Event Flow
+## Event Flow
 
 1. **Rider** calls `ride-service` → creates a ride record in MySQL → publishes `ride.requested` Kafka topic.
 2. **matching-service** consumes `ride.requested` → calls `location-service` to find nearby drivers → publishes `ride.matched`.
