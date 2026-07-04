@@ -62,7 +62,7 @@ All containers share the `rideshare-network` bridge network.
 3. **ride-service** consumes `ride.matched` → updates ride record with assigned driver.
 4. **Driver app** periodically POSTs GPS coords to `location-service` → stored in Redis GEO set.
 
-## What's Next (TODO)
+
 
 ### location-service
 - [ ] Add `updateDriverLocation` method to `LocationService` and call it from `LocationController.updateDriverLocation()` (currently returns hardcoded string, service not invoked)
