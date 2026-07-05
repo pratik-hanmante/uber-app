@@ -53,7 +53,7 @@ A ride-sharing backend built as three Spring Boot microservices (Java 17, Spring
 | Zookeeper  | confluentinc/cp-zookeeper:7.4 | 2181  | Kafka coordinator               |
 | Kafka      | confluentinc/cp-kafka:7.4     | 9092  | Event streaming between services|
 
-All containers share the `rideshare-network` bridge network.
+
 
 ## Event Flow
 
