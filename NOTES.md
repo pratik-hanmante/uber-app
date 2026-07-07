@@ -81,7 +81,7 @@ A ride-sharing backend built as three Spring Boot microservices (Java 17, Spring
 - [ ] Add Kafka consumer for `ride.requested`
 - [ ] Call `location-service` to find nearby drivers (WebClient / Feign)
 - [ ] Publish `ride.matched` Kafka event
-- [ ] Configure `application.yaml`: Kafka brokers, location-service base URL
+- [ ] Configure `application.yaml`: Kafka brokers, location-service URL
 
 ### Cross-cutting
 - [ ] Wire inter-service HTTP calls (WebClient / Feign) for matching-service → location-service
