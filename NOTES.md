@@ -93,5 +93,5 @@ A ride-sharing backend built as three Spring Boot microservices (Java 17, Spring
 
 
 MySQL credentials: `root / root`, database: `ride_db`
-Kafka broker (from host): `localhost:9092`
+Kafka broker: `localhost:9092`
 Redis: `localhost:6379`
