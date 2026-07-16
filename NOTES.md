@@ -2,7 +2,7 @@
 
 
 
-A ride-sharing backend built with Spring Boot microservices (Java 17, Spring Boot 4), coordinated via Kafka and backed by Redis + MySQL.
+A ride-sharing backend built with Spring Boot microservices (Java 17, Spring Boot 4), coordinated via Kafka with Redis + MySQL.
 
 
 [Client]
