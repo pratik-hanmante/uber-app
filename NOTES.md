@@ -34,7 +34,7 @@ A ride-sharing backend built with Spring Boot microservices (Java 17, Spring Boo
 - **Messaging:** Kafka consumer + producer (`spring-kafka` dependency declared, not used)
 - **Role:** Listens for ride-request events, queries location-service for nearby drivers, and publishes a match event.
 - **Config:** `application.yaml` has `spring.application.name` only — no Kafka broker configured.
-- **Status:** Skeleton only — main class exists; no controllers, services, DTOs, or Kafka wiring.
+- **Status:** Skeleton only — main class exists; no controllers, services, DTOs, either Kafka wiring.
 
 ### ride-service
 - **Storage:** MySQL (`ride_db`)
