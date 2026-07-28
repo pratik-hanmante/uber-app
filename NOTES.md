@@ -26,7 +26,7 @@ A ride-sharing backend built with java and Spring Boot microservices (Java 17, S
   - `GET /drivers/nearby?latitude=&longitude=&radius=` — delegates to `LocationService.findNearbyDrivers`; `radius` will be defaulted to `5.0` km
   - `DELETE /drivers/{driverID}` — delegates to `LocationService.removeDriver`
 - **Service:** `LocationService` — two methods only (`findNearbyDrivers` returns `List.of()`, `removeDriver` is no-op); no `updateDriverLocation` method exists yet; Redis GEO ops not yet wired.
-- **Config:** `application.yaml` has `spring.application.name` only — Redis host/port not configured.
+- **Config:** `application.yaml` has `spring.application.name` only — Redis host/port is not configured.
 - **Status:** Controller + DTOs done. Service layer is a stub — Redis integration pending; `updateDriverLocation` is not yet wired to service.
 
 ### matching-service
