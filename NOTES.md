@@ -17,7 +17,7 @@ A ride-sharing backend built with java and Spring Boot microservices (Java 17, S
 ### location-service
 - **Port:** 8080
 - **Storage:** Redis (geo-spatial — `GEOADD` / `GEORADIUS` style commands)
-- **Role:** Receives real-time driver GPS pings, stores them in Redis, and exposes a nearby-driver search endpoint.
+- **Role:** Receives real-time driver GPS pings and coordinates, stores them in Redis, and exposes a nearby-driver search endpoint.
 - **Key DTOs:**
   - `DriverLocationRequest` — `driverId`, `latitude`, `longitude` (Lombok: `@Data`, `@AllArgsConstructor`, `@NoArgsConstructor`)
   - `NearByDriverResponse` — `driverId`, `latitude`, `longitude`, `distanceInKm` (Lombok: `@Data`, `@AllArgsConstructor`, `@NoArgsConstructor`)
