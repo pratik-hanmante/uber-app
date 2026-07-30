@@ -51,7 +51,7 @@ A ride-sharing backend built with java and Spring Boot microservices (Java 17, S
 | Redis      | redis:latest                  | 6379  | Driver location store (geo)     |
 | MySQL      | mysql:8.0                     | 3306  | Ride persistence (`ride_db`)    |
 | Zookeeper  | confluentinc/cp-zookeeper:7.4 | 2181  | Kafka coordinator               |
-| Kafka      | confluentinc/cp-kafka:7.4     | 9092  | Event streaming between services|
+| Kafka      | confluentinc/cp-kafka:7.4     | 9092  | Event streaming between different services|
 
 
 
