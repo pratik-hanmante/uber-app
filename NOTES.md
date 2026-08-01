@@ -2,7 +2,7 @@
 
 
 
-A ride-sharing and booking backend built with java and Spring Boot microservices (Java 17, Spring Boot 4), coordinated via Kafka with Redis + MySQL.
+A ride-sharing and booking backend which is built with java and Spring Boot microservices (Java 17, Spring Boot 4), coordinated via Kafka with Redis + MySQL.
 
 
 [Client]
