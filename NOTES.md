@@ -3,7 +3,7 @@
 A ride-sharing and booking backend which is built with java and Spring Boot microservices (Java 17, Spring Boot 4), coordinated via Kafka with Redis + MySQL.
 
 
-[Client Side 
+[Client Side]
    |
    ├── location-service   (Redis + REST)
    ├── matching-service   (Kafka)
